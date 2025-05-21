@@ -11,15 +11,15 @@ jobs:
     - uses: actions/checkout@main
 
     # Log into Azure
-    - uses: azure/login@v1
+    - name: login to azure
+      uses: azure/login@v1
       with:
        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     # Deploy Bicep file
-    - name: deploy
-      uses: azure/arm-deploy@v1
-      with:
-       subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
-       resourceGroupName: mylearning-rg-grp
-       template: ./bicep/main.bicep       
-       failOnStdErr: false
+    - name: Deploy Bicep Template
+      run: |
+          az deployment sub create \
+            --location eastus \
+            --template-file main.bicep \
+            --parameters @parameters.json
