@@ -1,6 +1,8 @@
 name: bicep deployment
 
 on:
+  workflow_dispatch:
+    
   push:
     branches: [main]
 jobs:
